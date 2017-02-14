@@ -19,7 +19,12 @@ object Common extends AutoPlugin {
     organization := appOrganization,
     version := appVersion,
     scalaVersion := appScalaVersion,
-    resolvers += Resolver.typesafeRepo("releases"),
+    resolvers ++= Seq(
+        "Atlassian Releases" at "https://maven.atlassian.com/repository/public/",
+        "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
+        "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",
+        Resolver.typesafeRepo("releases")
+    ),
     javacOptions ++= Seq("-source", "1.8", "-target", "1.8"),
     scalacOptions ++= Seq(
       "-encoding",
