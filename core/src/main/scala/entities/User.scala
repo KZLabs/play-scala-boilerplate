@@ -6,4 +6,4 @@ case class User(
   lastName: String,
   fullName: String,
   email: String,
-  password: String)
+  var password: String)

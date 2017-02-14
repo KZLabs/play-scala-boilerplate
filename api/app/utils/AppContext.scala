@@ -8,8 +8,11 @@ import core.entities._
 import storage.production._
 
 class AppContext @Inject() (
-  environment: play.api.Environment,
-  configuration: play.api.Configuration
+  val environment: play.api.Environment,
+  val configuration: play.api.Configuration
 ) {
-  val userService : UserService = new UserService(new ProdUserBucket())
+  val bucketContext: BucketContext =
+    new BucketContext(new ProdUserBucket(), new ProdNotificationBucket())
+
+  val userService: UserService = new UserService(bucketContext)
 }

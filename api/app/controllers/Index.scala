@@ -18,7 +18,7 @@ class Index @Inject() (appContext: AppContext) extends Controller{
 				Unauthorized(Json.obj("message" -> errors, "errors" -> errors))
 			},
 			data => {
-        Ok(Json.obj("name" -> data.fullName, "version" -> "1.0", "environment" -> environment.mode))
+        Ok(Json.obj("name" -> data.fullName, "version" -> "1.0", "environment" -> appContext.environment.mode))
       })
 
   }

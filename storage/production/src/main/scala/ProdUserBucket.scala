@@ -11,8 +11,10 @@ class ProdUserBucket extends UserBucket {
     fullName = "Jhon Doe",
     email = "jhon.doe@mail.com",
     password = "$2a$10$iXIfki6AefgcUsPqR.niQ.FvIK8vdcfup09YmUxmzS/sQeuI3QOFG"))
+
+  def save(user: User): Option[User] = Some(user)
 }
 
 object ProdUserBucket {
-  
+
 }
