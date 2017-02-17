@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: r00t
+      MYSQL_DATABASE: coquito_dev
+      MYSQL_USER: coquito_dev_user
+      MYSQL_PASSWORD: coquito_dev_p4ssw0rd
+
+volumes:
+  db_data:

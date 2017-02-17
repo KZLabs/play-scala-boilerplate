@@ -20,6 +20,8 @@ object Common extends AutoPlugin {
     version := appVersion,
     scalaVersion := appScalaVersion,
     resolvers ++= Seq(
+        Resolver.defaultLocal,
+        Resolver.mavenLocal,
         "Atlassian Releases" at "https://maven.atlassian.com/repository/public/",
         "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases",
         "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots/",

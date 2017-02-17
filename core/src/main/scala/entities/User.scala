@@ -1,9 +1,14 @@
 package core.entities
 
 case class User(
-  userId: String,
+  id: BigInt,
   firstName: String,
   lastName: String,
-  fullName: String,
   email: String,
-  var password: String)
+  var password: String,
+  emailVerified: Boolean = false,
+  emailVerifiedAt: Option[Long],
+  pendingReset: Boolean = false,
+  lastLoginAt: Option[Long],
+  updatedAt: Long,
+  createdAt: Long)

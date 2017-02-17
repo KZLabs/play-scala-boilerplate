@@ -1,9 +1,10 @@
 package storage.production
 
+import slick.driver.MySQLDriver.api.Database
 import core.buckets.UserBucket
 import core.entities._
 
-class ProdUserBucket extends UserBucket {
+class ProdUserBucket(val db: Database) extends UserBucket {
   def findByEmail(email: String): Option[User] =
     Some(User(userId = "21",
     firstName = "Jhon",
