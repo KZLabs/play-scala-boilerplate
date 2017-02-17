@@ -1,7 +1,7 @@
 package core.entities
 
 case class User(
-  id: BigInt,
+  id: Long,
   firstName: String,
   lastName: String,
   email: String,

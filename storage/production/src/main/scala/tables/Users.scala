@@ -1,37 +1,38 @@
 package storage.production.tables
 
 import core.entities.User
+import slick.driver.MySQLDriver.api._
 import slick.profile.SqlProfile.ColumnOption.SqlType
+//import java.time.Instant
+//Instant.now.getEpochSecond
 
-trait UsersTable { this: Db =>
-  import config.driver.api._
+class Users(tag: Tag) extends Table[User](tag, "users") {
 
-  private class Users(tag: Tag) extends Table[User](tag, "users") {
+  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
-    def id = column[BigInt]("id", O.PrimaryKey, O.AutoInc)
+  def firstName = column[String]("first_name", O.SqlType("varchar(45)"))
+  def lastName = column[String]("last_name", O.SqlType("varchar(45)"))
+  def email = column[String]("email", O.SqlType("varchar(255)"))
+  def password = column[String]("password", O.SqlType("varchar(255)"))
 
-    def firstName = column[String]("first_name")
-    def lastName = column[String]("last_name")
-    def email = column[String]("email")
-    def password = column[String]("password")
+  def emailVerified = column[Boolean]("email_verified", O.Default(false))
+  def emailVerifiedAt = column[Option[Long]]("email_verified_at")
 
-    def emailVerified = column[String]("email_verified")
-    def emailVerifiedAt = column[Option[Long]]("email_verified_at")
+  def pendingReset = column[Boolean]("pending_reset", O.Default(false))
+  def lastLoginAt = column[Option[Long]]("last_login_at")
 
-    def pendingReset = column[String]("pending_reset")
-    def lastLoginAt = column[Option[Long]]("last_login_at")
+  // this feature is particular to MySQL so it may not work
+  // in other rdbms backends
+  def updatedAt = column[Long]("updated_at", O.Default(0))
+  def createdAt = column[Long]("created_at", O.Default(0))
 
-    // this feature is particular to MySQL so it may not work
-    // in other rdbms backends
-    def updatedAt = column[Long]("updated", SqlType("timestamp not null default UNIX_TIMESTAMP on update UNIX_TIMESTAMP"))
-    def createdAt = column[Long]("created", SqlType("timestamp not null default UNIX_TIMESTAMP on update UNIX_TIMESTAMP"))
+  // Indexes
+  def emailIndex = index("user_email_idx", email, true)
 
-    // Indexes
-    def emailIndex = index("user_email_idx", email, true)
+  // Select
+  def * = (id, firstName, lastName, email, password, emailVerified, emailVerifiedAt, pendingReset, lastLoginAt, updatedAt, createdAt)  <> (User.tupled, User.unapply)
+}
 
-    // Select
-    def * = (id, firstName, lastName, email, password, emailVerified, emailVerifiedAt, pendingReset, lastLoginAt, updatedAt, createdAt) <>(User.tupled, User.unapply)
-  }
-
+trait UsersTable {
   val users = TableQuery[Users]
 }

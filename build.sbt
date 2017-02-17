@@ -31,10 +31,12 @@ settings(libraryDependencies ++= Dependencies.migrationManagerDependencies).
 enablePlugins(Common)
 
 lazy val migrations = (project in file("storage/migrations")).
-dependsOn(migrationManager, core % "test->test;compile->compile").
+dependsOn(storageProd, migrationManager, core % "test->test;compile->compile").
 settings(libraryDependencies ++= Dependencies.migrationsDependencies).
 enablePlugins(Common)
 
 addCommandAlias("mgm", "migration_manager/run")
 
 addCommandAlias("mg", "migrations/run")
+
+addCommandAlias("s", "api/run")

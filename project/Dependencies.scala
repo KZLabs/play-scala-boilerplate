@@ -6,7 +6,6 @@ object Dependencies {
   val forkliftVersion = "0.2.3"
 
   val commonDependencies: Seq[ModuleID] = Seq(
-    "org.slf4j" % "slf4j-nop" % "1.6.4",
     "org.scalatest" %% "scalatest" % "3.0.1" % "test"
   )
 
