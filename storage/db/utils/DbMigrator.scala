@@ -1,15 +1,15 @@
-package storage.production.utils
+package com.github.dolcalmi.migrations.utils
 
+import java.io._
+import scala.sys
 import java.io.PrintWriter
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 import com.imageworks.migration._
 
-import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging._
-import scala.sys
-import java.io._
+import com.typesafe.config.ConfigFactory
 
 class DbMigrator(configFile: File) extends LazyLogging {
 
@@ -33,7 +33,7 @@ class DbMigrator(configFile: File) extends LazyLogging {
 
   val migrator = new Migrator(connectionBuilder, databaseAdapter)
 
-  Class.forName("com.mysql.jdbc.Driver")
+  Class.forName(driverClassName)
 
   def migrate(version: Option[Long]): Boolean = {
 

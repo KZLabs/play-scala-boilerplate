@@ -1,16 +1,14 @@
-package storage.production
-
-import storage.production.utils._
-import scala.language.reflectiveCalls
+package com.github.dolcalmi.migrations.utils
 
 import java.io._
+import scala.language.reflectiveCalls
 
 object Main extends App{
 
   val resourcesPath = getClass.getResource("/migrations.conf")
   val migrator = new DbMigrator(new File(resourcesPath.getPath))
 
-  val conf = new MigrationCommands(args.toSeq)  // Note: This line also works for "object Main extends App"
+  val conf = new MigrationCommands(args.toSeq)
 
   conf.subcommand match {
     case Some(conf.newCommand) =>

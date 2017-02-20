@@ -1,13 +1,12 @@
-
-package storage.production.migrations
+package com.github.dolcalmi.migrations
 
 import com.imageworks.migration._
 
 /**
- * authoredAt: 1487551452125
+ * authoredAt: 1487555177124
  */
 
-class Migrate_20170219194412_CreateUserTable extends Migration
+class Migrate_20170219204617_CreateUserTable extends Migration
 {
   val tableName = "users"
   def up() {
@@ -27,7 +26,6 @@ class Migrate_20170219194412_CreateUserTable extends Migration
 
       t.bigint("updated_at", NotNull)
       t.bigint("created_at", NotNull)
-
     }
   }
 

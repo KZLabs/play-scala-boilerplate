@@ -25,7 +25,9 @@ enablePlugins(Common, PlayScala)
 lazy val root = (project in file(".")).
 aggregate(storageProd, core, api)
 
+lazy val migrations = (project in file("storage/db"))
+
 // Run play server
 addCommandAlias("s", "api/run")
 // Run Main class in storage prod for run migration tasks
-addCommandAlias("db", "storageProd/run")
+addCommandAlias("db", "migrations/run")
