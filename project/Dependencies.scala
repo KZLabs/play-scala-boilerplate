@@ -12,7 +12,7 @@ object Dependencies {
   )
 
   val dbAccess: Seq[ModuleID] = Seq(
-    "io.getquill" %% "quill-jdbc" % "1.1.1-SNAPSHOT",
+    "io.getquill" %% "quill-jdbc" % "1.1.0",
     "mysql" % "mysql-connector-java" % "5.1.34"
   )
 
