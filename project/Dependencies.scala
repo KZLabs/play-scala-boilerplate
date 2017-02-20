@@ -16,11 +16,6 @@ object Dependencies {
     "mysql" % "mysql-connector-java" % "5.1.34"
   )
 
-  // val json : Seq[ModuleID] = Seq(
-  //     "io.argonaut" %% "argonaut" % "6.0.4",
-  //     "com.propensive" %% "rapture-json-argonaut" % "1.1.0",
-  //     "com.typesafe.play" %% "play-json" % "2.5")
-
   val storageProdDependencies : Seq[ModuleID] = commonDependencies ++ dbAccess
 
   val coreDependencies : Seq[ModuleID] = commonDependencies ++ {
@@ -30,19 +25,12 @@ object Dependencies {
     )
   }
 
-  val silhouetteVer = "4.0.0"
-  val silhouetteLib : Seq[ModuleID] = Seq(
-    "com.mohiva" %% "play-silhouette" % silhouetteVer,
-    "com.mohiva" %% "play-silhouette-password-bcrypt" % silhouetteVer,
-    "com.mohiva" %% "play-silhouette-crypto-jca" % silhouetteVer,
-    "com.mohiva" %% "play-silhouette-persistence" % silhouetteVer,
-    "com.mohiva" %% "play-silhouette-testkit" % silhouetteVer % "test"
-  )
-
-  val apiDependencies    : Seq[ModuleID] = commonDependencies ++ dbAccess ++ silhouetteLib ++ {
+  val apiDependencies : Seq[ModuleID] = commonDependencies ++ dbAccess ++ {
     Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-      "net.codingwell" %% "scala-guice" % "4.1.0"
+      "net.codingwell" %% "scala-guice" % "4.1.0",
+      "com.pauldijou" %% "jwt-play" % "0.11.0",
+      "com.typesafe.play" %% "play-json" % "2.5.12"
       // "com.netaporter" %% "scala-uri" % "0.4.14",
       // "net.codingwell" %% "scala-guice" % "4.1.0"
       //jdbc,

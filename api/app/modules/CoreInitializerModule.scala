@@ -9,7 +9,7 @@ import utils._
 
 import play.api.Logger
 
-/** The Guice module which wires all Silhouette dependencies.
+/** The Guice module which wires all core context dependencies.
   */
 class CoreInitializerModule extends AbstractModule with ScalaModule {
 
