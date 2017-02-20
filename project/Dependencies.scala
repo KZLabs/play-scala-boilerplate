@@ -6,7 +6,9 @@ object Dependencies {
   val forkliftVersion = "0.2.3"
 
   val commonDependencies: Seq[ModuleID] = Seq(
-    "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.1" % "test",
+    "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
+    "ch.qos.logback" % "logback-classic" % "1.1.7"
   )
 
   val slick: Seq[ModuleID] = Seq(
@@ -25,7 +27,13 @@ object Dependencies {
   //     "com.propensive" %% "rapture-json-argonaut" % "1.1.0",
   //     "com.typesafe.play" %% "play-json" % "2.5")
 
-  val storageProdDependencies : Seq[ModuleID] = commonDependencies ++ slick
+  val storageProdDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ {
+    Seq(
+      "com.imageworks.scala-migrations" %% "scala-migrations" % "1.1.1",
+      "org.rogach" %% "scallop" % "2.1.0",
+      "com.typesafe" % "config" % "1.3.0"
+    )
+  }
 
   val migrationsDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ forkliftDependencies
   val migrationManagerDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ forkliftDependencies

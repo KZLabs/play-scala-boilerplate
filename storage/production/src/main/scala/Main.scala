@@ -1,0 +1,31 @@
+package storage.production
+
+import storage.production.utils._
+import scala.language.reflectiveCalls
+
+import java.io._
+
+object Main extends App{
+
+  val resourcesPath = getClass.getResource("/migrations.conf")
+  val migrator = new DbMigrator(new File(resourcesPath.getPath))
+
+  val conf = new MigrationCommands(args.toSeq)  // Note: This line also works for "object Main extends App"
+
+  conf.subcommand match {
+    case Some(conf.newCommand) =>
+      if (conf.newCommand.opts.isSupplied)
+        migrator.createMigration(conf.newCommand.opts())
+
+    case Some(conf.migrateCommand) =>
+      migrator.migrate(conf.migrateCommand.opts.toOption)
+
+    case Some(conf.rollbackCommand) =>
+      migrator.rollback(conf.rollbackCommand.opts.toOption)
+
+    case Some(conf.resetCommand) =>
+      migrator.reset()
+
+    case _ =>
+  }
+}

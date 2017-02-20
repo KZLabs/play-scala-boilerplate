@@ -1,1 +1,0 @@
-/home/dolcalmi/dev/dolcalmi/coquito-play-scala/./storage/migrations/src_migrations/main/scala/1.scala

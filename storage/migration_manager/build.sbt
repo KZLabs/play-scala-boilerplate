@@ -1,1 +1,0 @@
-name := Common.appNamePrefix + "migrationManager"

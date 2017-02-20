@@ -25,18 +25,7 @@ enablePlugins(Common, PlayScala)
 lazy val root = (project in file(".")).
 aggregate(storageProd, core, api)
 
-//Db migrations
-lazy val migrationManager = (project in file("storage/migration_manager")).
-settings(libraryDependencies ++= Dependencies.migrationManagerDependencies).
-enablePlugins(Common)
-
-lazy val migrations = (project in file("storage/migrations")).
-dependsOn(storageProd, migrationManager, core % "test->test;compile->compile").
-settings(libraryDependencies ++= Dependencies.migrationsDependencies).
-enablePlugins(Common)
-
-addCommandAlias("mgm", "migration_manager/run")
-
-addCommandAlias("mg", "migrations/run")
-
+// Run play server
 addCommandAlias("s", "api/run")
+// Run Main class in storage prod for run migration tasks
+addCommandAlias("db", "storageProd/run")
