@@ -19,15 +19,16 @@ import scala.util.{Failure, Success}
 
 class Index @Inject() (appContext: AppContext) extends Controller{
 
-  def index = Action.async {
+  def index = Action {
 
     val login = appContext.userService.login("jhon.doe@mail.com", "password")
 
-    login.map(user => Ok(Json.obj("name" -> user.firstName, "version" -> "1.0", "environment" -> appContext.environment.mode)) )
-    .recover {
-      case e => Unauthorized (Json.obj ("message" -> e.getMessage, "errors" -> e.getStackTrace.toString) )
-    }
-
+    login.fold(errors => {
+      Unauthorized(Json.obj("message" -> errors, "errors" -> errors))
+    },
+    data => {
+      Ok(Json.obj("name" -> data.firstName, "version" -> "1.0", "environment" -> appContext.environment.mode))
+    })
   }
 
 }

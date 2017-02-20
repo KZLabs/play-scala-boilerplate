@@ -11,15 +11,9 @@ object Dependencies {
     "ch.qos.logback" % "logback-classic" % "1.1.7"
   )
 
-  val slick: Seq[ModuleID] = Seq(
-    "com.typesafe.slick" %% "slick" % "3.1.1",
-    "com.typesafe.slick" %% "slick-hikaricp" % "3.1.1",
+  val dbAccess: Seq[ModuleID] = Seq(
+    "io.getquill" %% "quill-jdbc" % "1.1.1-SNAPSHOT",
     "mysql" % "mysql-connector-java" % "5.1.34"
-  )
-
-  val forkliftDependencies: Seq[ModuleID] = Seq(
-    "com.liyaos" %% "scala-forklift-slick" % forkliftVersion,
-    "io.github.nafg" %% "slick-migration-api" % "0.3.0"
   )
 
   // val json : Seq[ModuleID] = Seq(
@@ -27,16 +21,7 @@ object Dependencies {
   //     "com.propensive" %% "rapture-json-argonaut" % "1.1.0",
   //     "com.typesafe.play" %% "play-json" % "2.5")
 
-  val storageProdDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ {
-    Seq(
-      "com.imageworks.scala-migrations" %% "scala-migrations" % "1.1.1",
-      "org.rogach" %% "scallop" % "2.1.0",
-      "com.typesafe" % "config" % "1.3.0"
-    )
-  }
-
-  val migrationsDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ forkliftDependencies
-  val migrationManagerDependencies : Seq[ModuleID] = commonDependencies ++ slick ++ forkliftDependencies
+  val storageProdDependencies : Seq[ModuleID] = commonDependencies ++ dbAccess
 
   val coreDependencies : Seq[ModuleID] = commonDependencies ++ {
     Seq(
@@ -54,7 +39,7 @@ object Dependencies {
     "com.mohiva" %% "play-silhouette-testkit" % silhouetteVer % "test"
   )
 
-  val apiDependencies    : Seq[ModuleID] = commonDependencies ++ slick ++ silhouetteLib ++ {
+  val apiDependencies    : Seq[ModuleID] = commonDependencies ++ dbAccess ++ silhouetteLib ++ {
     Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
       "net.codingwell" %% "scala-guice" % "4.1.0"

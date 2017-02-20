@@ -15,22 +15,12 @@ class UserService (context: BucketContext) {
   val userBucket: UserBucket = context.userBucket
   val notificationBucket: NotificationBucket = context.notificationBucket
 
-  def login(email: String, password: String): Future[User] = {
+  def login(email: String, password: String): Either[String, User] = {
 
     val user = userBucket.findByEmail(email)
 
-    val p = Promise[User]()
-    val error = new InvalidParameterException("Invalid user or password")
-
-    user onComplete {
-      case Success(user) => {
-        if (password.isBcrypted(user.password)) p success user
-        else p failure error
-      }
-      case Failure(t) => p failure error
-    }
-
-    p.future
+    if (!user.isEmpty && password.isBcrypted(user.get.password)) Right(user.get)
+    else Left("Invalid user or password")
   }
 
 /*  def signup(newUser: User): Either[String, User] = {

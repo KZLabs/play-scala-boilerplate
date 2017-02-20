@@ -1,8 +1,9 @@
 package utils
 
 import com.google.inject._
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import io.getquill._
+import java.io.Closeable
+import javax.sql.DataSource
 
 import core.services._
 import core.buckets._
@@ -14,7 +15,7 @@ class AppContext @Inject() (
   val configuration: play.api.Configuration
 ) {
 
-  private val db = DatabaseConfig.forConfig[JdbcProfile]("database")
+  private val db = new MysqlJdbcContext[SnakeCase]("database")
 
   val bucketContext: BucketContext = BucketContext(new ProdUserBucket(db), new ProdNotificationBucket())
 

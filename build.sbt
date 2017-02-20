@@ -29,5 +29,5 @@ lazy val migrations = (project in file("storage/db"))
 
 // Run play server
 addCommandAlias("s", "api/run")
-// Run Main class in storage prod for run migration tasks
+// Run Main class in db project for run migration tasks
 addCommandAlias("db", "migrations/run")

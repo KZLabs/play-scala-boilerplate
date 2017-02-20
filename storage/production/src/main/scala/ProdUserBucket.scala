@@ -1,20 +1,19 @@
 package storage.production
 
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
 import core.buckets.UserBucket
 import core.entities._
-import storage.production.tables.UsersTable
-import slick.driver.MySQLDriver.api._
+import io.getquill._
+
 import scala.concurrent.Future
 
-class ProdUserBucket(val config: DatabaseConfig[JdbcProfile]) extends UserBucket with UsersTable  {
+class ProdUserBucket(val context: db.DbContext) extends UserBucket {
+  import context._
 
-  val db = config.db
+  val users = quote(querySchema[User]("users"))
 
-  def findByEmail(email: String): Future[User] = db.run(users.filter(_.email === email).result.head)
+  def findByEmail(email: String): Option[User] = run(users.filter(_.email == lift(email))).headOption
 
-  def save(user: User): Future[User] = Future.successful[User](user)
+  def save(user: User): Option[User] = Some(user)
 }
 
 object ProdUserBucket {
