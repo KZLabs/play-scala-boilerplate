@@ -14,7 +14,7 @@ trait UserBase {
   def createdAt: Long
 }
 
-case class User (
+case class User(
   val id: Long,
   val firstName: String,
   val lastName: String,
@@ -25,4 +25,5 @@ case class User (
   val pendingReset: Boolean = false,
   val lastLoginAt: Option[Long],
   val updatedAt: Long,
-  val createdAt: Long) extends UserBase
+  val createdAt: Long
+) extends UserBase

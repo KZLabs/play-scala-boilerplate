@@ -6,11 +6,11 @@ import core.entities._
 import core.buckets._
 import com.github.t3hnar.bcrypt._
 
-import scala.concurrent.{Future, Promise}
-import scala.util.{Success, Failure}
+import scala.concurrent.{ Future, Promise }
+import scala.util.{ Success, Failure }
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class UserService (context: BucketContext) {
+class UserService(context: BucketContext) {
 
   val userBucket: UserBucket = context.userBucket
   val notificationBucket: NotificationBucket = context.notificationBucket
@@ -23,7 +23,7 @@ class UserService (context: BucketContext) {
     else Left("Invalid user or password")
   }
 
-/*  def signup(newUser: User): Either[String, User] = {
+  /*  def signup(newUser: User): Either[String, User] = {
 
     def sendVerificationEmail(user: User) = {
       val token: String = "" //TODO: generate token

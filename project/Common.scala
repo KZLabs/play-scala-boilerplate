@@ -38,7 +38,8 @@ object Common extends AutoPlugin {
       "-Xlint",
       "-Yno-adapted-args",
       "-Ywarn-numeric-widen",
-      "-Xfatal-warnings"
+      "-Xfatal-warnings",
+      "-language:implicitConversions"
     ),
     scalacOptions in Test ++= Seq("-Yrangepos"),
     autoAPIMappings := true

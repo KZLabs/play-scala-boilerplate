@@ -11,11 +11,11 @@ import core.entities._
 import storage.production._
 
 class AppContext @Inject() (
-  val environment: play.api.Environment,
-  val configuration: play.api.Configuration
+    val environment: play.api.Environment,
+    val configuration: play.api.Configuration
 ) {
 
-  private val db = new MysqlJdbcContext[SnakeCase]("database")
+  private val db = new MysqlJdbcContext[SnakeCase](configuration.underlying.getConfig("database"))
 
   val bucketContext: BucketContext = BucketContext(new ProdUserBucket(db), new ProdNotificationBucket())
 

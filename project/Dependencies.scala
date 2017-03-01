@@ -29,7 +29,7 @@ object Dependencies {
     Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
       "net.codingwell" %% "scala-guice" % "4.1.0",
-      "com.pauldijou" %% "jwt-play" % "0.11.0",
+      "com.pauldijou" %% "jwt-play-json" % "0.11.0",
       "com.typesafe.play" %% "play-json" % "2.5.12"
       // "com.netaporter" %% "scala-uri" % "0.4.14",
       // "net.codingwell" %% "scala-guice" % "4.1.0"
