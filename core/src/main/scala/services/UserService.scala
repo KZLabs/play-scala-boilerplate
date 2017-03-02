@@ -10,17 +10,22 @@ import scala.concurrent.{ Future, Promise }
 import scala.util.{ Success, Failure }
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class UserService(context: BucketContext) {
+import core.utils.FailDSL._
+import scalaz._
+
+class UserService(context: BucketContext) extends BaseService(context) {
 
   val userBucket: UserBucket = context.userBucket
   val notificationBucket: NotificationBucket = context.notificationBucket
 
-  def login(email: String, password: String): Either[String, User] = {
-
-    val user = userBucket.findByEmail(email)
-
-    if (!user.isEmpty && password.isBcrypted(user.get.password)) Right(user.get)
-    else Left("Invalid user or password")
+  def login(email: String, password: String): Future[Fail \/ User] = {
+    val errorMsg = "core.user.invalidEmailOrPassword"
+    for {
+      user <- userBucket.findByEmail(email) ?| errorMsg // <- you don't create Fail yoursefl but the ?| operator do it for you
+      _ <- password.isBcrypted(user.password) ?| errorMsg // <- You can just forward underlying Fail without adding a message
+    } yield {
+      user
+    }
   }
 
   /*  def signup(newUser: User): Either[String, User] = {

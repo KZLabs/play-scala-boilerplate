@@ -8,7 +8,8 @@ object Dependencies {
   val commonDependencies: Seq[ModuleID] = Seq(
     "org.scalatest" %% "scalatest" % "3.0.1" % "test",
     "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
-    "ch.qos.logback" % "logback-classic" % "1.1.7"
+    "ch.qos.logback" % "logback-classic" % "1.1.7",
+    "org.scalaz" %% "scalaz-core" % "7.2.9"
   )
 
   val dbAccess: Seq[ModuleID] = Seq(
@@ -31,6 +32,7 @@ object Dependencies {
       "net.codingwell" %% "scala-guice" % "4.1.0",
       "com.pauldijou" %% "jwt-play-json" % "0.11.0",
       "com.typesafe.play" %% "play-json" % "2.5.12"
+
       // "com.netaporter" %% "scala-uri" % "0.4.14",
       // "net.codingwell" %% "scala-guice" % "4.1.0"
       //jdbc,

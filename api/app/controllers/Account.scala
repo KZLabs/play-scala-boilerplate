@@ -14,10 +14,13 @@ import play.api.Logger
 import pdi.jwt._
 import utils._
 import models._
+import api._, ApiDSL._
+
+import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.language.implicitConversions
 
 class Account @Inject() (appContext: AppContext, val messagesApi: MessagesApi) extends api.ApiController {
-
-  //val logger = Logger(this.getClass())
 
   implicit val loginInfoReads: Reads[Tuple2[String, String]] = (
     (__ \ "email").read[String](Reads.email) and
@@ -25,24 +28,18 @@ class Account @Inject() (appContext: AppContext, val messagesApi: MessagesApi) e
   )
 
   def login = ApiActionWithBody { implicit request =>
+
     readFromRequest[Tuple2[String, String]] {
       case (email, password) => {
+        for {
+          user <- appContext.userService.login(email, password) ?| (f => errorUserNotFound)
+        } yield {
+          val token = ApiToken.create(request.apiKeyOpt.get, user.id)
+          val loginUser = LoginUser.fromUser(token, user)
+          ok(Json.obj("user" -> Json.toJson(loginUser)))
+        }
 
-        appContext.userService.login(email, password).fold(
-          errors => {
-            //Unauthorized(Json.obj("message" -> errors, "errors" -> errors))
-            errorUserNotFound
-          },
-          data => {
-            val token = ApiToken.create(request.apiKeyOpt.get, data.id)
-
-            val loginUser = LoginUser.fromUser(token, data)
-
-            ok(Json.obj("user" -> Json.toJson(loginUser)))
-          }
-        )
       }
-
     }
   }
   def me = SecuredApiAction { implicit request =>

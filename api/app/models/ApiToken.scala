@@ -50,7 +50,6 @@ object ApiToken {
   )
 
   val HEADER_NAME: String = getConfigString("play.http.session.jwtName").getOrElse("Authorization")
-  play.api.Logger.info(s"is config null ${HEADER_NAME == null}")
 
   val MAX_AGE: Option[Long] = getConfigMillis("play.http.session.maxAge").map(_ / 1000)
 
