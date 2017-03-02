@@ -19,6 +19,7 @@ import api._, ApiDSL._
 import scala.concurrent.Future
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.language.implicitConversions
+import core.entities.Fail
 
 class Account @Inject() (appContext: AppContext, val messagesApi: MessagesApi) extends api.ApiController {
 
@@ -38,7 +39,6 @@ class Account @Inject() (appContext: AppContext, val messagesApi: MessagesApi) e
           val loginUser = LoginUser.fromUser(token, user)
           ok(Json.obj("user" -> Json.toJson(loginUser)))
         }
-
       }
     }
   }

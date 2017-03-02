@@ -144,7 +144,10 @@ object ApiDSL extends I18nSupport {
   //implicit def stepToResponse(step: Step[ApiResponse]): Future[ApiResult] = step.run.map(_.toEither.merge)(executionContext)
 
   implicit def stepToResult(step: Step[Future[ApiResult]])(implicit ec: ExecutionContext): Future[ApiResult] =
-    step.run.map(_.toEither.merge.asInstanceOf[Future[ApiResult]]).flatMap(x => x)
+    step.run.map(_.toEither match {
+      case Left(e) => Future.successful(e)
+      case Right(f) => f
+    }).flatMap(x => x)
 
   implicit def stepToErrorResult(step: Step[ApiError])(implicit ec: ExecutionContext): Future[ApiError] = step.run.map(_.toEither.merge)
 

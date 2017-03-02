@@ -4,7 +4,7 @@ import ApiResponse._
 import ApiError._
 import models.ApiLog
 import play.api.mvc.Results._
-import play.api.mvc.{ Result, RequestHeader }
+import play.api.mvc.{ RequestHeader, Result }
 import play.api.libs.json._
 import play.api.libs.json.Json._
 import play.api.i18n.Lang
@@ -42,6 +42,7 @@ trait ApiResult {
     val envelope = request.getQueryString("envelope") == Some("true")
     toResult(envelope)
   }
+
   def toResult(envelope: Boolean = false)(implicit lang: Lang): Result = {
     val js = if (envelope) envelopedJson else json
     (status match {
